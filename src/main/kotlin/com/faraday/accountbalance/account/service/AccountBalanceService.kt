@@ -4,6 +4,7 @@ import com.faraday.accountbalance.currency.service.CurrencyConverterService
 import mu.KotlinLogging
 import org.joda.money.CurrencyUnit
 import org.joda.money.IllegalCurrencyException
+import org.joda.money.Money
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -12,11 +13,10 @@ private val log = KotlinLogging.logger {}
 
 @Service
 class AccountBalanceService(val accountBalanceProvider: AccountBalanceProvider, val converterService: CurrencyConverterService) {
-    fun getAccountBalance(accountId: String, currency: String): String {
+    fun getAccountBalance(accountId: String, currency: String): Money {
         val currencyUnit = mapToCurrencyUnit(currency)
         val balance = accountBalanceProvider.getAccountBalance(accountId)
-        val convertedBalance = converterService.convertToCurrency(balance, currencyUnit)
-        return convertedBalance.toString()
+        return converterService.convertToCurrency(balance, currencyUnit)
     }
 
     private fun mapToCurrencyUnit(currency: String): CurrencyUnit {
