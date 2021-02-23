@@ -18,7 +18,7 @@ class AccountBalanceServiceTest {
     private val converterService: CurrencyConverterService = Mockito.mock(CurrencyConverterService::class.java)
 
     companion object {
-        const val ACCOUNT_ID = "12345"
+        const val ACCOUNT_ID = "123456"
     }
 
     @Test

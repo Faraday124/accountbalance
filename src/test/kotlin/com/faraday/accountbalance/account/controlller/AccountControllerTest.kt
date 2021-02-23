@@ -33,16 +33,19 @@ class AccountControllerTest {
     @Autowired
     lateinit var mvc: MockMvc
 
+    companion object {
+        const val ACCOUNT_ID = "123456"
+    }
+
     @Test
     fun `should return balance in USD`() {
         //given
-        val accountId = "12345"
         val currency = "usd"
         val expectedMoney = Money.of(USD, BigDecimal("45678.98"))
-        Mockito.`when`(accountBalanceService.getAccountBalance(accountId, currency)).thenReturn(expectedMoney)
+        Mockito.`when`(accountBalanceService.getAccountBalance(ACCOUNT_ID, currency)).thenReturn(expectedMoney)
 
         //when
-        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$accountId/balance?currency=$currency")
+        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$ACCOUNT_ID/balance?currency=$currency")
                 .accept(MediaType.APPLICATION_JSON))
 
         //then
@@ -58,13 +61,12 @@ class AccountControllerTest {
     @Test
     fun `should return correct balance when currency code is capitalized`() {
         //given
-        val accountId = "12345"
         val currency = "Gbp"
         val expectedMoney = Money.of(GBP, BigDecimal("45678.98"))
-        Mockito.`when`(accountBalanceService.getAccountBalance(accountId, currency)).thenReturn(expectedMoney)
+        Mockito.`when`(accountBalanceService.getAccountBalance(ACCOUNT_ID, currency)).thenReturn(expectedMoney)
 
         //when
-        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$accountId/balance?currency=$currency")
+        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$ACCOUNT_ID/balance?currency=$currency")
                 .accept(MediaType.APPLICATION_JSON))
 
         //then
@@ -78,26 +80,22 @@ class AccountControllerTest {
     }
 
     @Test
-    fun `should return 404 when no currency specified`() {
-        //given
-        val accountId = "12345"
-
+    fun `should return 400 when no currency specified`() {
         //when
-        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$accountId/balancey")
+        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$ACCOUNT_ID/balance")
                 .accept(MediaType.APPLICATION_JSON))
 
         //then
-        call.andExpect(MockMvcResultMatchers.status().isNotFound)
+        call.andExpect(MockMvcResultMatchers.status().isBadRequest)
     }
 
     @Test
     fun `should return 400 when invalid currency code`() {
         //given
-        val accountId = "12345"
         val currency = "usd123"
 
         //when
-        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$accountId/balance?currency=$currency")
+        val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$ACCOUNT_ID/balance?currency=$currency")
                 .accept(MediaType.APPLICATION_JSON))
 
         //then

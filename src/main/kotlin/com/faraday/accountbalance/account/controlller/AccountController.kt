@@ -26,7 +26,7 @@ class AccountController(val accountBalanceService: AccountBalanceService) {
     }
 
     private fun validateParams(accountId: String, currency: String) {
-        validateParam(accountId, Regex("^\\d{5}$"), "Invalid account number")
+        validateParam(accountId, Regex("^\\d{6}$"), "Invalid account number")
         validateParam(currency, Regex("^[A-Za-z]{3}$"), "Invalid currency code")
     }
 
