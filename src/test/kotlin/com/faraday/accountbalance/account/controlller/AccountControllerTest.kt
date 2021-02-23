@@ -107,8 +107,6 @@ class AccountControllerTest {
         //given
         val accountId = "accountId"
         val currency = "usd"
-        val expectedMoney = Money.of(USD, BigDecimal("45678.98"))
-        Mockito.`when`(accountBalanceService.getAccountBalance(accountId, currency)).thenReturn(expectedMoney)
 
         //when
         val call = mvc.perform(MockMvcRequestBuilders.get("/accounts/$accountId/balance?currency=$currency")
