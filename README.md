@@ -1,6 +1,4 @@
 # TODO LIST
 
-
 - implement swagger
-- account number validator
-- debt
+- gateway tests

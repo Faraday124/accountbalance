@@ -35,7 +35,7 @@ class AccountBalanceServiceTest {
         val result = accountBalanceService.getAccountBalance(ACCOUNT_ID, "usd")
 
         //then
-        assertThat(result).isEqualTo(expectedResult.toString())
+        assertThat(result).isEqualTo(expectedResult)
 
     }
 
@@ -53,7 +53,7 @@ class AccountBalanceServiceTest {
         val result = accountBalanceService.getAccountBalance(ACCOUNT_ID, "usd")
 
         //then
-        assertThat(result).isEqualTo(expectedResult.toString())
+        assertThat(result).isEqualTo(expectedResult)
 
     }
 
@@ -71,7 +71,7 @@ class AccountBalanceServiceTest {
         val result = accountBalanceService.getAccountBalance(ACCOUNT_ID, "usd")
 
         //then
-        assertThat(result).isEqualTo(expectedResult.toString())
+        assertThat(result).isEqualTo(expectedResult)
 
     }
 
@@ -89,7 +89,7 @@ class AccountBalanceServiceTest {
         val result = accountBalanceService.getAccountBalance(ACCOUNT_ID, "gbp")
 
         //then
-        assertThat(result).isEqualTo(expectedResult.toString())
+        assertThat(result).isEqualTo(expectedResult)
 
     }
 
@@ -107,21 +107,15 @@ class AccountBalanceServiceTest {
         val result = accountBalanceService.getAccountBalance(ACCOUNT_ID, "gbp")
 
         //then
-        assertThat(result).isEqualTo(expectedResult.toString())
+        assertThat(result).isEqualTo(expectedResult)
 
     }
 
     @Test
     fun `should throw exception when incorrect currency`() {
         //given
-        val balanceInPLN = Money.of(CurrencyUnit.of("PLN"), BigDecimal("1234.76"))
-        val expectedResult = Money.of(USD, BigDecimal("13697.99"))
         val accountId = "12345"
-
-        Mockito.`when`(accountBalanceProvider.getAccountBalance(accountId)).thenReturn(balanceInPLN)
-        Mockito.`when`(converterService.convertToCurrency(balanceInPLN, USD)).thenReturn(expectedResult)
         val accountBalanceService = AccountBalanceService(accountBalanceProvider, converterService)
-
 
         //when
         //then
@@ -129,6 +123,4 @@ class AccountBalanceServiceTest {
             accountBalanceService.getAccountBalance(accountId, "usd123")
         }
     }
-
-
 }
