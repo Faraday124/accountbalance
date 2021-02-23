@@ -1,5 +1,6 @@
-package com.faraday.accountbalance.service
+package com.faraday.accountbalance.account.service
 
+import com.faraday.accountbalance.currency.service.CurrencyConverterService
 import mu.KotlinLogging
 import org.joda.money.CurrencyUnit
 import org.joda.money.IllegalCurrencyException

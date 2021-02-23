@@ -1,4 +1,4 @@
-package com.faraday.accountbalance.gateway
+package com.faraday.accountbalance.currency.gateway
 
 import com.faraday.accountbalance.config.CurrencyApiProperties
 import com.google.gson.GsonBuilder
@@ -23,7 +23,7 @@ class CurrencyGatewayApiImpl(val config: CurrencyApiProperties, val client: OkHt
 
     @Cacheable
     override fun getCurrencyRate(currency: String): ExchangeRateDto? {
-        var request = Request.Builder().url("${config.url}/$TABLE_PREFIX/$currency").build()
+        val request = Request.Builder().url("${config.url}/$TABLE_PREFIX/$currency").build()
 
         client.newCall(request).execute().use {
             if (!it.isSuccessful) throw IOException("Failed to fetch current rate for currency: $currency Error response: $it.response")
