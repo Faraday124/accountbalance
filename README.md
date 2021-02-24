@@ -35,3 +35,6 @@ Expected response should have following structure:
 - integration test
 - cache test
 - security 
+- change controller validation for annotations
+- consider Customer entity and redesign bounded contexts
+

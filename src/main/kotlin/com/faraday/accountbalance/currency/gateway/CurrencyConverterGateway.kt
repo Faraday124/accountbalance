@@ -11,7 +11,7 @@ class CurrencyConverterGateway(val api: CurrencyGatewayApi) {
 
     fun getCurrencyRate(currency: CurrencyUnit): BigDecimal {
         val dto = api.getCurrencyRate(currency.code.toLowerCase())
-        if(dto == null || dto.rates.isEmpty()) {
+        if(dto?.rates == null || dto.rates.isEmpty()) {
             throw InvalidCurrencyRateException("Invalid result currency rate for currency: $currency")
         }
         val midRate = dto.rates.first().mid
