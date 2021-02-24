@@ -6,8 +6,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.Cacheable
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
-import java.io.IOException
+import org.springframework.web.server.ResponseStatusException
 
 interface CurrencyGatewayApi {
     fun getCurrencyRate(currency: String): ExchangeRateDto?
@@ -26,7 +27,7 @@ class CurrencyGatewayApiImpl(val config: CurrencyApiProperties, val client: OkHt
         val request = Request.Builder().url("${config.url}/$TABLE_PREFIX/$currency").build()
 
         client.newCall(request).execute().use {
-            if (!it.isSuccessful) throw IOException("Failed to fetch current rate for currency: $currency Error response: $it.response")
+            if (!it.isSuccessful) throw ResponseStatusException(HttpStatus.NOT_FOUND, "Failed to fetch current rate for currency: $currency Error response: $it.response")
 
             val gson = GsonBuilder().create()
             return gson.fromJson(it.body?.string(), ExchangeRateDto::class.java)

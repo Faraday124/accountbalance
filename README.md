@@ -29,7 +29,9 @@ Expected response should have following structure:
 
 `currency` should be a string containing exactly 3 letters e.g. `USD`
 
-## TODO LIST
+### *TODO LIST*
 
 - implement swagger
-- gateway tests
+- integration test
+- cache test
+- security 

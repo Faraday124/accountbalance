@@ -68,6 +68,11 @@
             <artifactId>okhttp</artifactId>
             <version>4.9.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.gmazzo</groupId>
+            <artifactId>okhttp-mock</artifactId>
+            <version>1.2.1</version>
+        </dependency>
         <!--Object mapper-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
